@@ -1,0 +1,25 @@
+{
+  "name": "proxymanager",
+  "version": "1.0.0",
+  "description": "Proxy manager built on top of Node.js",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/perimetral/proxymanager.git"
+  },
+  "keywords": [
+    "proxy",
+    "proxies",
+    "socks",
+    "http"
+  ],
+  "author": "perimetral",
+  "license": "BSD-4-Clause",
+  "bugs": {
+    "url": "https://github.com/perimetral/proxymanager/issues"
+  },
+  "homepage": "https://github.com/perimetral/proxymanager#readme"
+}
