@@ -24,8 +24,13 @@
   "homepage": "https://github.com/perimetral/proxymanager#readme",
   "dependencies": {
     "commander": "^2.9.0",
+    "gulp": "^3.9.1",
+    "gulp-coffee": "^2.3.2",
     "http-proxy": "^1.14.0",
     "nedb": "^1.8.0",
     "request": "^2.74.0"
+  },
+  "devDependencies": {
+    "gulp-util": "^3.0.7"
   }
 }
