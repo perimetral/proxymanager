@@ -21,9 +21,9 @@ to scrap it from web. In case of scrapping, server must respond with `200` statu
 
 Independent on method of getting proxy list, they must be in format `HOST:PORT` divided by splitter which is configurable.
 
-You are free to use this file to update proxy list instead of refreshing it, because of new values will be appended to database instead of rewriting existing values (excluding cases of same `HOST:PORT` in which it will be just skipped). To clear proxy list just remove database file (see below to know where to find it).
+You are free to use `manager.js` for updating proxy list instead of refreshing it, because of new values will be appended to database instead of rewriting existing values (excluding cases of same `HOST:PORT` in which it will be just skipped). To clear proxy list just remove database file (see below to know where to find it).
 
-For listening for requests just use `listen.js` without arguments. After running, it will listen for any HTTP connections at port which is configured and proxy all of connections to proxies from list which is defined by using `manager.js`. Notice `listen.js` will automatically refresh proxy list as long as there will be inactive ones in it.
+To listen for requests just use `listen.js` without arguments. After running, it will listen for any HTTP connections at port which is configured and proxy all of connections to proxies from list which is defined by using `manager.js`. Notice `listen.js` will automatically refresh proxy list as long as there will be inactive ones in it.
 
 ### Configuration
 Simply edit **config.js** as you need.
@@ -37,4 +37,4 @@ Simply edit **config.js** as you need.
 * `listen port` (number, default is `3000`): port to listen for connections;
 
 ### Testing
-Add some new proxies by using `manager.js` and then run listener by using `listen.js`. After that you will be able to provide your proxy server URL (default is `localhost:3000`) to browser and use it like regular proxy server.
+Add some new proxies by using `manager.js` and then run listener by using `listen.js`. After that you will be able to provide your proxy server URL (default is `localhost:3000`) to browser and use it like regular proxy server. You may find some example proxies in `test.txt` which had been found in the wild on web for testing purposes.
