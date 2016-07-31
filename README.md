@@ -11,11 +11,11 @@ or as standalone application:
 ### Explanation
 Actually there is fully workable proxy manager. There are two files: `manager.js` and `listen.js` which are used for manipulating proxies and application. First of all, you may run
 
-`manager.js -f FILENAME`
+`node manager.js -f FILENAME`
 
 to load proxy list from file or run
 
-`manager.js -w FULL_URL -m REQUEST_METHOD [--json]`
+`node manager.js -w FULL_URL -m REQUEST_METHOD [--json]`
 
 to scrap it from web. In case of scrapping, server must respond with `200` status code and text or JSON (if such option is specified) containing proxies.
 
