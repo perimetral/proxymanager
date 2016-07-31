@@ -24,6 +24,7 @@
   "homepage": "https://github.com/perimetral/proxymanager#readme",
   "dependencies": {
     "commander": "^2.9.0",
+    "http-proxy": "^1.14.0",
     "nedb": "^1.8.0",
     "request": "^2.74.0"
   }

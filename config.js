@@ -9,13 +9,16 @@ const config = {
 	'proxy splitter': '\n',
 
 	//	Logger function
-	'logger function': (data) => {
+	'logger function': (...args) => {
 		let timestamp = new Date();
-		console.log('LOG', timestamp.toUTCString() + ': ', data);
+		console.log('LOG', timestamp.toUTCString() + ': ', ...args);
 	},
 
 	//	How often to check for proxies availability
 	'check interval': 60 * 1000,
+
+	//	Port for listening for connections
+	'listen port': 3000,
 };
 
 module.exports = config;

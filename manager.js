@@ -30,12 +30,15 @@ if (cli.web) {
 		if (e) throw new Error(e);
 		if (response.statusCode != 200) throw new Error('Server failed with: ' + response.statusCode);
 		parser(db, body);
+		return;
 	});
 } else if (cli.filename) {
 	fs.readFile(cli.filename, 'utf8', (e, data) => {
 		if (e) throw new Error(e);
 		parser(db, data);
+		return;
 	});
 } else {
 	parser(db, '');
+	return;
 };
