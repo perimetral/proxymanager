@@ -1,6 +1,6 @@
 # proxymanager
 
-#### Install
+### Install
 You can simply install it by casting:
 
 `npm i perimetral/proxymanager`
@@ -8,7 +8,7 @@ You can simply install it by casting:
 or as standalone application:
 
 `git clone https://github.com/perimetral/proxymanager.git`
-#### Explanation
+### Explanation
 Actually there is fully workable proxy manager. There are two files: `manager.js` and `listen.js` which are used for manipulating proxies and application. First of all, you may run
 
 `manager.js -f FILENAME`
@@ -25,7 +25,7 @@ You are free to use this file to update proxy list instead of refreshing it, bec
 
 For listening for requests just use `listen.js` without arguments. After running, it will listen for any HTTP connections at port which is configured and proxy all of connections to proxies from list which is defined by using `manager.js`. Notice `listen.js` will automatically refresh proxy list as long as there will be inactive ones in it.
 
-#### Configuration
+### Configuration
 Simply edit **config.js** as you need.
 
 * `database filename` (string, default is `./db/data.ne`): where to store working proxies;
@@ -35,5 +35,6 @@ Simply edit **config.js** as you need.
 * `check interval` (number in milliseconds, default is `60000`): how often to check for proxies availability;
 * `listen host` (string, default is `localhost`): host to listen for connections;
 * `listen port` (number, default is `3000`): port to listen for connections;
-#### Testing
+
+### Testing
 Add some new proxies by using `manager.js` and then run listener by using `listen.js`. After that you will be able to provide your proxy server URL (default is `localhost:3000`) to browser and use it like regular proxy server.
