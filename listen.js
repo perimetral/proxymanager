@@ -33,10 +33,13 @@ db.find({}, (e, result) => {
 	let worker = result[0];
 	target = 'http://' + worker.host + ':' + worker.port;
 	console.log(target);
-	let proxyServer = proxy.createProxyServer({ target }).listen(c('listen port'), () => {
+	let proxyServer = proxy.createProxyServer({ target }).listen(c('listen port'), c('listen host'), () => {
 		console.log('listening on ' + c('listen port'));
 	});
 	proxyServer.on('proxyReq', (...args) => {
-		c('logger function')(...args);
+		c('logger function')('REQUEST', ...args);
+	});
+	proxyServer.on('proxyRes', (...args) => {
+		c('logger function')('RESPONSE', ...args);
 	});
 });

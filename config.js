@@ -19,6 +19,7 @@ const config = {
 
 	//	Port for listening for connections
 	'listen port': 3000,
+	'listen host': 'localhost',
 };
 
 module.exports = config;
