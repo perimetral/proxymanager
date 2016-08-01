@@ -17,6 +17,9 @@ const config = {
 	//	How often to check for proxies availability
 	'check interval': 60 * 1000,
 
+	//	Which URL to use while checking
+	'check url': 'http://www.rhymezone.com/',
+
 	//	Port for listening for connections
 	'listen port': 3000,
 	'listen host': 'localhost',

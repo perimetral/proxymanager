@@ -4,6 +4,7 @@ const Nedb = require('nedb');
 const proxy = require('http-proxy');
 const request = require('request');
 const cli = require('commander');
+const checker = require('./lib/checker');
 
 const db = new Nedb({
 	filename: c('database filename'),
@@ -33,10 +34,15 @@ setInterval(() => {
 		if (e) throw new Error(e);
 		if ((! result) || (! result.length)) return undefined;
 		result.forEach((x, i, ar) => {
-			request.get(x.host + ':' + x.port, (e, response, body) => {
-				if (e || (! response)) db.remove({ host: x.host }, { multi: true}, (e, rmCount) => {
+			checker(x.host, x.port, c('check url')).then(() => {
+				db.update({ host: x.host }, { $set: { available: true }, }, { multi: true }, (e, updCount) => {
 					if (e) throw new Error(e);
-					c('logger function')(x.host + ':' + x.port + ' proxy removed from list');
+					c('logger function')(x.host + ':' + x.port + ' is now AVAILABLE');
+				});
+			}).catch((status, e) => {
+				db.update({ host: x.host }, { $set: { available: false }, }, { multi: true }, (e, updCount) => {
+					if (e) throw new Error(e);
+					c('logger function')(x.host + ':' + x.port + ' is now UNAVAILABLE');
 				});
 			});
 		});
@@ -46,7 +52,8 @@ setInterval(() => {
 db.find({}, (e, result) => {
 	if (e) throw new Error(e);
 	if ((! result) || (! result.length)) throw new Error('No proxies!');
-	let worker = result[0];
+	let available = result.filter((x, i, ar) => { return x.available });
+	let worker = available[0];
 	target = (target || ('http://' + worker.host + ':' + worker.port));
 	c('logger function')('USING ' + target + ' AS PROXY SERVER');
 	let proxyServer = proxy.createProxyServer({ target }).listen(c('listen port'), c('listen host'), () => {
