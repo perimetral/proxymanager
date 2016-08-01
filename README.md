@@ -23,7 +23,19 @@ Independent on method of getting proxy list, they must be in format `HOST:PORT` 
 
 You are free to use `manager.js` for updating proxy list instead of refreshing it, because of new values will be appended to database instead of rewriting existing values (excluding cases of same `HOST:PORT` in which it will be just skipped). To clear proxy list just remove database file (see below to know where to find it).
 
-To listen for requests just use `listen.js` without arguments. After running, it will listen for any HTTP connections at port which is configured and proxy all of connections to proxies from list which is defined by using `manager.js`. Notice `listen.js` will automatically refresh proxy list as long as there will be inactive ones in it.
+To listen for requests just use `listen.js`. After running, it will listen for any HTTP connections at port which is configured and proxy all of connections to proxies from list which is defined by using `manager.js`. Notice `listen.js` will automatically refresh proxy list as long as there will be inactive ones in it.
+
+Use it without arguments to let application choose proxy automatically:
+
+`node listen.js`
+
+Or define proxy you want to use directly by:
+
+`node listen.js use HOST:PORT`
+
+You can see all of available proxies simply by:
+
+`node listen.js show`
 
 ### Configuration
 Simply edit **config.js** as you need.
