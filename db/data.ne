@@ -1,3 +1,4 @@
-{"host":"113.252.105.65","port":"80","_id":"AMXblHAb9vB6zsCb"}
-{"host":"211.143.155.222","port":"80","_id":"ApG5flX1cYvmTovD"}
-{"host":"119.29.146.114","port":"1080","_id":"EmNuuC2afxWthWNx"}
+{"host":"80.232.222.135","port":"3128","_id":"PHvBArKf4Iritfrw"}
+{"host":"51.254.106.75","port":"80","_id":"Vcw4HVu6KlcNJJaA"}
+{"host":"51.254.106.67","port":"80","_id":"c0V0XsjIpeRuaOWa"}
+{"host":"107.151.152.211","port":"80","_id":"hK20WK3IjjVDb8Qk"}
