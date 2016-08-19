@@ -45,6 +45,7 @@ Simply edit **config.js** as you need.
 * `proxy splitter` (string, default is `\n`): symbols to split proxies in proxy list;
 * `logger function` (function, takes dynamic arguments): function for logging. As long as you asked me for logging but have not asked exactly for logging method, i decided to make it configurable, so redefine this function as you need. Default is console logging with timestamps in UTC format. Notice this function is used as is while proxying all of requests, so you may get much of data for just simple request, because of browser will also ask for favicon, styles, scripts and other stuff;
 * `check interval` (number in milliseconds, default is `60000`): how often to check for proxies availability;
+* `check url` (string, default is `http://www.rhymezone.com/`): which URL to use while testing proxies;
 * `listen host` (string, default is `localhost`): host to listen for connections;
 * `listen port` (number, default is `3000`): port to listen for connections;
 
