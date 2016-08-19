@@ -6,11 +6,10 @@ $(document).ready(() => {
 		$('#h_loginForm').submit();
 		return false;
 	});
-	$('#registerForm_submit').click((ev) => {
+	$('#changePasswordForm_submit').click((ev) => {
 		ev.preventDefault();
-		$('#h_registerForm_username').val($('#registerForm_username').val());
-		$('#h_registerForm_passhash').val(sha512($('#registerForm_password').val()));
-		$('#h_registerForm').submit();
+		$('#h_changePasswordForm_passhash').val(sha512($('#changePasswordForm_password').val()));
+		$('#h_changePasswordForm').submit();
 		return false;
 	});
 });

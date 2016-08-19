@@ -1,6 +1,7 @@
 global.c = require('./lib/configurator')({ initial: require('./config') });
 global.log = c('logger');
 
+const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');

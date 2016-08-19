@@ -1,3 +1,11 @@
-{{#if user}}{{user}} <a href="/auth/logout">Logout</a>{{/if}}
+{{#if user}}
+
+{{user}} <a href="/auth/logout">Logout</a>
+
+{{else}}
+
 <br>
+<br><br><br><br><br>
 <a href="/auth">Auth</a>
+
+{{/if}}
