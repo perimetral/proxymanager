@@ -1,4 +1,5 @@
 global.c = require('./lib/configurator')({ initial: require('./config') });
+global.log = c('logger');
 
 const Nedb = require('nedb');
 const proxy = require('http-proxy');
@@ -7,10 +8,10 @@ const cli = require('commander');
 const checker = require('./lib/checker');
 
 const db = new Nedb({
-	filename: c('database filename'),
+	filename: c('database nedb filename'),
 	autoload: true,
 });
-db.persistence.setAutocompactionInterval(c('database autocompaction interval'));
+db.persistence.setAutocompactionInterval(c('database nedb autocompaction interval'));
 
 var target = '';
 
@@ -37,12 +38,12 @@ setInterval(() => {
 			checker(x.host, x.port, c('check url')).then(() => {
 				db.update({ host: x.host }, { $set: { available: true }, }, { multi: true }, (e, updCount) => {
 					if (e) throw new Error(e);
-					c('logger function')(x.host + ':' + x.port + ' is now AVAILABLE');
+					log(x.host + ':' + x.port + ' is now AVAILABLE');
 				});
 			}).catch((status, e) => {
 				db.update({ host: x.host }, { $set: { available: false }, }, { multi: true }, (e, updCount) => {
 					if (e) throw new Error(e);
-					c('logger function')(x.host + ':' + x.port + ' is now UNAVAILABLE');
+					log(x.host + ':' + x.port + ' is now UNAVAILABLE');
 				});
 			});
 		});
@@ -55,14 +56,14 @@ db.find({}, (e, result) => {
 	let available = result.filter((x, i, ar) => { return x.available });
 	let worker = available[0];
 	target = (target || ('http://' + worker.host + ':' + worker.port));
-	c('logger function')('USING ' + target + ' AS PROXY SERVER');
+	log('USING ' + target + ' AS PROXY SERVER');
 	let proxyServer = proxy.createProxyServer({ target }).listen(c('listen port'), c('listen host'), () => {
 		console.log('listening on ' + c('listen port'));
 	});
 	proxyServer.on('proxyReq', (...args) => {
-		c('logger function')('REQUEST', ...args);
+		log('REQUEST', ...args);
 	});
 	proxyServer.on('proxyRes', (...args) => {
-		c('logger function')('RESPONSE', ...args);
+		log('RESPONSE', ...args);
 	});
 });

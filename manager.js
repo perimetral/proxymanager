@@ -1,4 +1,5 @@
 global.c = require('./lib/configurator')({ initial: require('./config') });
+global.log = c('logger');
 
 const Nedb = require('nedb');
 const cli = require('commander');
@@ -8,10 +9,10 @@ const fs = require('fs');
 const parser = require('./lib/parser');
 
 const db = new Nedb({
-	filename: c('database filename'),
+	filename: c('database nedb filename'),
 	autoload: true,
 });
-db.persistence.setAutocompactionInterval(c('database autocompaction interval'));
+db.persistence.setAutocompactionInterval(c('database nedb autocompaction interval'));
 
 cli
 	.version('1.0.0')

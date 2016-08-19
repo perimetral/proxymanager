@@ -1,28 +1,30 @@
 const config = {
-	//	Where to store proxies
-	'database filename': './db/data.ne',
+	'database nedb filename': './db/data.ne',
+	'database nedb autocompaction interval': 5 * 1000,
+	'database mongo url': 'mongodb://localhost:27017/proxymanager',
 
-	//	How often to compact database
-	'database autocompaction interval': 5 * 1000,
-
-	//	Symbol or symbols for splitting proxies in list
 	'proxy splitter': '\n',
 
-	//	Logger function
-	'logger function': (...args) => {
+	'logger': (...args) => {
 		let timestamp = new Date();
 		console.log('LOG', timestamp.toUTCString() + ': ', ...args);
 	},
 
-	//	How often to check for proxies availability
 	'check interval': 60 * 1000,
-
-	//	Which URL to use while checking
 	'check url': 'http://www.rhymezone.com/',
 
-	//	Port for listening for connections
-	'listen port': 3000,
 	'listen host': 'localhost',
+	'listen port': 3033,
+
+	'server host': 'localhost',
+	'server port': 3000,
+	'server logger mode': 'dev',
+
+	'paths static': './public',
+	'paths views': './views',
+
+	'session secret length': 512,
+	'session ttl': 14 * 24 * 60 * 60,
 };
 
 module.exports = config;
