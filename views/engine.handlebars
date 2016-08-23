@@ -1,0 +1,67 @@
+<div class="modal fade" tabindex="-1" role="dialog" id="activateModal" aria-labelledby="activateModalLabel">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="activateModalLabel">Activate service</h4>
+			</div>
+			{{#if workingProxies}}
+				<form action="/api/activate" method="post">
+					<div class="modal-body">
+						Choose target to use as proxy
+						<select name="proxyId">
+							{{#each workingProxies}}
+								<option value="{{_id}}">{{host}}:{{port}}</option>
+							{{/each}}
+						</select>
+						<hr>
+						Choose port to listen for connections
+						<input type="number" name="port" min="0" max="65535" />
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						<button type="submit" class="btn btn-default">Activate</button>
+					</div>
+				</form>
+			{{else}}
+				<div class="modal-body">
+					<span class="text-danger">NO AVAILABLE PROXIES FOUND</span>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			{{/if}}
+		</div>
+	</div>
+</div>
+
+Service status:
+{{#if running}}
+	<table class="table table-hover">
+		<thead>
+			<tr>
+				<th>Host</th>
+				<th>Port</th>
+				<th>Listen at port</th>
+				<th>Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			{{#each running}}
+				<tr>
+					<td>{{host}}</td>
+					<td>{{port}}</td>
+					<td>{{listenPort}}</td>
+					<td>
+						<a href="#" class="stopService" proxyId="{{_id}}">Stop</a>&nbsp;
+						<a href="#" class="observe" proxyId="{{_id}}">Observe</a>&nbsp;
+					</td>
+				</tr>
+			{{/each}}
+		</tbody>
+	</table>
+{{else}}
+	<span class="text-danger">NO PROXIES ARE IN USE NOW</span>
+{{/if}}
+<hr>
+<button class="btn btn-primary" data-toggle="modal" data-target="#activateModal">Activate proxy</button>

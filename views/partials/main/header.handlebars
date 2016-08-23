@@ -2,14 +2,17 @@
 <nav class="navbar navbar-default navbar-fixed-top">
 	<div class="container">
 		<div class="navbar-header">
-			<a class="navbar-brand" href="#">Proxy manager</a>
+			<a class="navbar-brand" href="#">Proxy manager (logged as {{user.username}})</a>
 		</div>
 		<div id="navbar" class="navbar-collapse collapse">
 			<ul class="nav navbar-nav navbar-right">
+				<li><a href="/">Engine</a></li>
+				<li><a href="/configure">Configure</a></li>
+				<li><a href="/list">Proxies</a></li>
 				<li><a href="/auth/changePassword">Change password</a></li>
 				<li><a href="/auth/logout">Logout</a></li>
 			</ul>
-		</div><!--/.nav-collapse -->
+		</div>
 	</div>
 </nav>
 {{/if}}

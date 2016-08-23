@@ -1,5 +1,6 @@
 const passport = require('passport');
 var Account = require('../lib/models/Account');
+const authCheck = require('./authCheck');
 
 const express = require('express');
 let r = express.Router();
@@ -9,9 +10,10 @@ r.get('/', (req, res) => {
 	return res.render('login');
 });
 
-r.get('/changePassword', (req, res) => {
-	if (! req.user) return res.redirect(500, '/');
-	return res.render('changePassword');
+r.get('/changePassword', authCheck, (req, res) => {
+	return res.render('changePassword', {
+		user: req.user,
+	});
 });
 
 r.post('/register', (req, res) => {
@@ -35,8 +37,7 @@ r.post('/login', passport.authenticate('local'), (req, res) => {
 	return res.redirect('/');
 });
 
-r.post('/changePassword', (req, res) => {
-	if (! req.user) return res.redirect(500, '/');
+r.post('/changePassword', authCheck, (req, res) => {
 	let passhash = req.body.password;
 
 	Account.findByUsername(req.user.username).then((user) => {
@@ -54,11 +55,11 @@ r.post('/changePassword', (req, res) => {
 					return res.redirect('/');
 				});
 			});
-		} else res.redirect(500, '/');
+		} else res.redirect('/');
 	});
 });
 
-r.get('/logout', (req, res) => {
+r.get('/logout', authCheck, (req, res) => {
 	req.logout();
 	return res.redirect('/');
 });

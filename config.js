@@ -1,17 +1,28 @@
+const path = require('path');
+const util = require('util');
+
 const config = {
-	'database nedb filename': './db/data.ne',
+	'database nedb proxies': path.join(__dirname, 'db/proxies.ne'),
+	'database nedb services': path.join(__dirname, 'db/services.ne'),
 	'database nedb autocompaction interval': 5 * 1000,
 	'database mongo url': 'mongodb://localhost:27017/proxymanager',
 
 	'proxy splitter': '\n',
 
-	'logger': (...args) => {
+	'clean logger': (...args) => {
 		let timestamp = new Date();
-		console.log('LOG', timestamp.toUTCString() + ': ', ...args);
+		return util.format('LOG', timestamp.toUTCString() + ':', ...args);
+	},
+	'logger': (...args) => {
+		console.log(config['clean logger'](...args));
 	},
 
-	'check interval': 60 * 1000,
+	'proxy log middleware': (...args) => {
+		return args.join('\n');
+	},
+
 	'check url': 'http://www.rhymezone.com/',
+	'check interval': 60 * 1000,
 
 	'listen host': 'localhost',
 	'listen port': 3033,
@@ -20,8 +31,8 @@ const config = {
 	'server port': 3000,
 	'server logger mode': 'dev',
 
-	'paths static': './public',
-	'paths views': './views',
+	'paths static': path.join(__dirname, 'public'),
+	'paths views': path.join(__dirname, 'views'),
 
 	'session secret length': 512,
 	'session ttl': 14 * 24 * 60 * 60,

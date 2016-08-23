@@ -1,0 +1,67 @@
+<div class="modal fade" tabindex="-1" role="dialog" id="addProxiesModal" aria-labelledby="addProxiesModalLabel">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="addProxiesModalLabel">Add proxies</h4>
+			</div>
+			<div class="modal-body">
+				Upload proxy list. Accepts text with one proxy in format <strong>HOST:PORT</strong> per line
+				<form action="/api/addProxies/file" method="post" enctype="multipart/form-data">
+					<input type="file" name="proxyListFile" />
+					<button type="submit" class="btn btn-primary">Upload</button>
+				</form>
+				<hr>
+				Or grab same from web
+				<br>
+				<form action="/api/addProxies/web" method="post">
+					<input type="text" id="grabUrl" placeholder="Enter URL" name="proxyListUrl" />
+					<input type="checkbox" value="json" name="json">Ask for JSON</input>
+					<button type="submit" class="btn btn-primary">Grab</button>
+				</form>
+				<hr>
+				Or enter it here
+				<br>
+				<form action="/api/addProxies/text" method="post">
+					<textarea id="grabText" name="proxyListText"></textarea>
+					<button type="submit" class="btn btn-primary">Add</button>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<button class="btn btn-primary" data-toggle="modal" data-target="#addProxiesModal">Add proxies</button>
+<br><br>
+<table class="table table-hover">
+	<thead>
+		<tr>
+			<th>Status</th>
+			<th>Host</th>
+			<th>Port</th>
+			<th>Actions</th>
+		</tr>
+	</thead>
+	<tbody>
+		{{#each data}}
+			<tr>
+				<td>
+					{{#if available}}
+						<span class="text-success">UP</span>
+					{{else}}
+						<span class="text-danger">{{status}}</span>
+					{{/if}}
+				</td>
+				<td>{{host}}</td>
+				<td>{{port}}</td>
+				<td>
+					<a href="#" class="forceCheckLink" proxyId="{{_id}}">Force check</a>&nbsp;
+					<a href="#" class="removeLink" proxyId="{{_id}}">Remove</a>&nbsp;
+				</td>
+			</tr>
+		{{/each}}
+	</tbody>
+</table>

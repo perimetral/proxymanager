@@ -1,0 +1,68 @@
+Keep empty inputs when updating to set default values
+<br><br>
+<table class="table table-hover">
+	<thead>
+		<tr>
+			<th>Option name</th>
+			<th>Current value</th>
+			<th>New value</th>
+			<th>Actions</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>Proxies database filename</td>
+			<td>{{"database nedb proxies"}}</td>
+			<form action="/api/configure" method="post">
+				<input type="hidden" name="optionName" value="database nedb proxies" />
+				<td><input type="text" name="proxies" /></td>
+				<td><button class="btn btn-primary" type="submit">Reload database</button></td>
+			</form>
+		</tr>
+		<tr>
+			<td>Services database filename</td>
+			<td>{{"database nedb services"}}</td>
+			<form action="/api/configure" method="post">
+				<input type="hidden" name="optionName" value="database nedb services" />
+				<td><input type="text" name="services" /></td>
+				<td><button class="btn btn-primary" type="submit">Reload database</button></td>
+			</form>
+		</tr>
+		<tr>
+			<td>Database compaction interval (ms)</td>
+			<td>{{"database nedb autocompaction interval"}}</td>
+			<form action="/api/configure" method="post">
+				<input type="hidden" name="optionName" value="database nedb autocompaction interval" />
+				<td><input type="number" name="acInterval" /></td>
+				<td><button class="btn btn-primary" type="submit">Update</button></td>
+			</form>
+		</tr>
+		<tr>
+			<td>Proxy splitter</td>
+			<td>{{"proxy splitter"}}</td>
+			<form action="/api/configure" method="post">
+				<input type="hidden" name="optionName" value="proxy splitter" />
+				<td><input type="text" name="splitter" /></td>
+				<td><button class="btn btn-primary" type="submit">Update</button></td>
+			</form>
+		</tr>
+		<tr>
+			<td>Proxy check URL</td>
+			<td>{{"check url"}}</td>
+			<form action="/api/configure" method="post">
+				<input type="hidden" name="optionName" value="check url" />
+				<td><input type="text" name="checkurl" /></td>
+				<td><button class="btn btn-primary" type="submit">Update</button></td>
+			</form>
+		</tr>
+		<tr>
+			<td>Proxy check interval (ms)</td>
+			<td>{{"check interval"}}</td>
+			<form action="/api/configure" method="post">
+				<input type="hidden" name="optionName" value="check interval" />
+				<td><input type="number" name="checkInterval" /></td>
+				<td><button class="btn btn-primary" type="submit">Update</button></td>
+			</form>
+		</tr>
+	</tbody>
+</table>

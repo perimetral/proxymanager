@@ -17,7 +17,10 @@ const sessionStore = require('connect-mongo')(session);
 mongoose.connect(c('database mongo url'));
 
 var app = express();
-app.engine('handlebars', handlebars({ defaultLayout: 'main' }));
+let engine = handlebars.create({
+	defaultLayout: 'main',
+});
+app.engine('handlebars', engine.engine);
 app.set('view engine', 'handlebars');
 app.set('views', c('paths views'));
 app.use(logger(c('server logger mode')));
@@ -42,6 +45,7 @@ passport.use(new LocalStrategy(Account.authenticate()));
 passport.serializeUser(Account.serializeUser());
 passport.deserializeUser(Account.deserializeUser());
 
+c('app status running', []);
 app = require('./routing')(app);
 
 app.listen(c('server port'), () => {
