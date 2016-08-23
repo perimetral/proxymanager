@@ -15,7 +15,6 @@ $(document).ready(() => {
 	$('.removeLink').click((ev) => {
 		ev.preventDefault();
 		let proxyId = $(ev.target).attr('proxyId');
-		console.log();
 		$.ajax({
 			type: 'POST',
 			url: '/api/remove',
@@ -23,6 +22,19 @@ $(document).ready(() => {
 		}).then((data) => {
 			if ('error' in data) alert(data.error);
 			if (data.success) window.location = '/list';
+		});
+		return false;
+	});
+	$('.stopService').click((ev) => {
+		ev.preventDefault();
+		let proxyId = $(ev.target).attr('proxyId');
+		$.ajax({
+			type: 'POST',
+			url: '/api/stop',
+			data: { proxyId },
+		}).then((data) => {
+			if ('error' in data) alert(data.error);
+			if (data.success) window.location = '/';
 		});
 		return false;
 	});

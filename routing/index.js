@@ -7,7 +7,7 @@ const routers = {
 	auth: require('./auth'),
 };
 
-const r = (app) => {
+const r = (app, io) => {
 	app.use('/auth', routers.auth);
 	app.use('/api', routers.api);
 
@@ -43,11 +43,27 @@ const r = (app) => {
 	app.get('/configure', authCheck, (req, res) => {
 		return res.render('configure', {
 			user: req.user,
-			'database nedb filename': c('database nedb filename'),
+			'database nedb proxies': c('database nedb proxies'),
+			'database nedb services': c('database nedb services'),
 			'database nedb autocompaction interval': c('database nedb autocompaction interval'),
 			'proxy splitter': c('proxy splitter'),
 			'check interval': c('check interval'),
 			'check url': c('check url'),
+		});
+	});
+
+	app.get('/observe/:proxyId', authCheck, (req, res) => {
+		let proxyId = req.params.proxyId;
+		worker.observe(proxyId).then((journal) => {
+			return res.render('observe', {
+				user: req.user,
+				journal,
+			});
+		}).catch((e) => {
+			return res.render('error', {
+				error: e,
+				action: '/observe/' + proxyId,
+			});
 		});
 	});
 

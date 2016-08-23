@@ -40,8 +40,7 @@ Service status:
 	<table class="table table-hover">
 		<thead>
 			<tr>
-				<th>Host</th>
-				<th>Port</th>
+				<th>Proxy</th>
 				<th>Listen at port</th>
 				<th>Actions</th>
 			</tr>
@@ -49,12 +48,11 @@ Service status:
 		<tbody>
 			{{#each running}}
 				<tr>
-					<td>{{host}}</td>
+					<td>{{target}}</td>
 					<td>{{port}}</td>
-					<td>{{listenPort}}</td>
 					<td>
-						<a href="#" class="stopService" proxyId="{{_id}}">Stop</a>&nbsp;
-						<a href="#" class="observe" proxyId="{{_id}}">Observe</a>&nbsp;
+						<a href="#" class="stopService" proxyId="{{proxyId}}">Stop</a>&nbsp;
+						<a href="/observe/{{proxyId}}">Observe</a>&nbsp;
 					</td>
 				</tr>
 			{{/each}}

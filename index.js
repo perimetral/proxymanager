@@ -13,6 +13,8 @@ var LocalStrategy = require('passport-local').Strategy;
 const crypto = require('crypto');
 const session = require('express-session');
 const sessionStore = require('connect-mongo')(session);
+const http = require('http');
+
 
 mongoose.connect(c('database mongo url'));
 
@@ -45,9 +47,13 @@ passport.use(new LocalStrategy(Account.authenticate()));
 passport.serializeUser(Account.serializeUser());
 passport.deserializeUser(Account.deserializeUser());
 
-c('app status running', []);
-app = require('./routing')(app);
+const httpServer = http.Server(app)
+global.io = require('socket.io')(httpServer);
+io.on('connection', (socket) => {});
 
-app.listen(c('server port'), () => {
+c('app status running', []);
+app = require('./routing')(app, io);
+
+httpServer.listen(c('server port'), () => {
 	log('listening on ' + c('server port'));
 });

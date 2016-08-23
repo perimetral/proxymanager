@@ -5,21 +5,6 @@ let r = express.Router();
 const authCheck = require('./authCheck');
 const worker = require('../lib/worker');
 
-r.post('/addProxies/file', authCheck, (req, res) => {
-		//worker.addProxies()
-	worker.list().then((data) => {
-		return res.render('list', {
-			user: req.user,
-			data,
-		});
-	}).catch((e) => {
-		return res.render('error', {
-			error: e,
-			action: '/list',
-		});
-	});
-});
-
 r.post('/addProxies/text', authCheck, (req, res) => {
 	let proxyList = req.body.proxyListText || req.query.proxyListText;
 	worker.parse(proxyList);
@@ -128,28 +113,46 @@ r.post('/configure', authCheck, (req, res) => {
 r.post('/activate', authCheck, (req, res) => {
 	let id = req.body.proxyId || req.query.proxyId;
 	let port = req.body.port || req.query.port;
-	worker.activate(id, port).then(() => {
-		return worker.status();
-	}).catch((e) => {
+	try {
+		worker.activate(id, port).then(() => {
+			return worker.status();
+		}).catch((e) => {
+			return res.render('error', {
+				error: e,
+				action: '/api/activate',
+			});
+		}).then((data) => {
+			return res.render('engine', {
+				user: req.user,
+				running: data.running,
+				workingProxies: data.workingProxies,
+			});
+		}).catch((e) => {
+			return res.render('error', {
+				error: e,
+				action: '/',
+			});
+		});	
+	} catch (e) {
 		return res.render('error', {
 			error: e,
-			action: '/activate',
+			action: '/api/activate',
 		});
-	}).then((data) => {
-		return res.render('engine', {
-			user: req.user,
-			running: data.running,
-		});
-	}).catch((e) => {
-		return res.render('error', {
-			error: e,
-			action: '/',
-		});
-	});
+	};
 });
 
-r.post('/engine/deactivate', authCheck, (req, res) => {
-
+r.post('/stop', authCheck, (req, res) => {
+	let id = req.body.proxyId || req.query.proxyId;
+	worker.stop(id).then(() => {
+		return res.json({
+			success: true,
+		});
+	}).catch((e) => {
+		return res.json({
+			error: e,
+			action: '/api/stop',
+		})
+	})
 });
 
 module.exports = r;

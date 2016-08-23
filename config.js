@@ -17,8 +17,8 @@ const config = {
 		console.log(config['clean logger'](...args));
 	},
 
-	'proxy log middleware': (...args) => {
-		return args.join('\n');
+	'proxy modify response': (res) => {
+		return res;
 	},
 
 	'check url': 'http://www.rhymezone.com/',

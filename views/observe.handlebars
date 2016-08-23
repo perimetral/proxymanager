@@ -1,0 +1,17 @@
+Data is updating automatically
+<hr>
+{{#each journal}}
+<hr>{{this}}
+{{/each}}
+<script type="text/javascript">
+	document.body.scrollIntoView(false);
+	const socket = io('http://localhost:3000');
+	let locationSplitted = window.location.toString().split('/');
+	let proxyId = locationSplitted[locationSplitted.length - 1];
+	socket.on('proxyReq', (data) => {
+		if (data.proxyId === proxyId) window.location = window.location.toString();
+	});
+	socket.on('proxyRes', (data) => {
+		if (data.proxyId === proxyId) window.location = window.location.toString();
+	});
+</script>
